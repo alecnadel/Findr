@@ -1,0 +1,11 @@
+{
+    "sqltools.connections": [
+        {
+            "previewLimit": 50,
+            "driver": "SQLite",
+            "database": "${workspaceFolder:Findr}/Tkinter_App/DB_Folder/conferencepaper.db",
+            "name": "conferencepaper"
+        }
+    ],
+    "sqltools.useNodeRuntime": true
+}
