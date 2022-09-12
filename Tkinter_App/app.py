@@ -6,10 +6,10 @@ import backend
 
 class Engine(tk.Tk):
     def __init__(self):
-        super().__init__()
+        super().__init__() #initialize the tk.TK class
         self.title('Findr')
         self.style = ttkthemes.ThemedStyle()
-        self.style.theme_use('breeze')
+        self.style.set_theme("breeze")
         self.iconbitmap('Dooffy-Characters-Q1.ico')
         self.withdraw()
         self.wm_state('zoomed') #create full screen window
@@ -133,6 +133,9 @@ class Engine(tk.Tk):
         self.tree.heading('year', text='year', anchor=tk.CENTER)
         self.tree.heading('filepath', text='filepath', anchor=tk.CENTER)    
         self.tree.pack(side=tk.TOP, fill=tk.BOTH, expand=tk.YES, anchor=tk.NE) #Display search results in treeview widget.
+        
+        #test treeview insert data manually
+        self.tree.insert(parent="", index=tk.END, text="", values=("test1", "test2", "test3", "test4", "test5", "test6"))
         
         # right-click menu from Treeview widget
         self.menu = tk.Menu(self, tearoff=False)
