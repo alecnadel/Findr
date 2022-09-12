@@ -1,8 +1,8 @@
 import sqlite3 as sql
-from tkinter import *
+
 
 #create a class object, function nested in python class.
-class backend(Tk):
+class backend():
     def __init__(self,filename,title,keywords,author,year,filepath,rows):
         self.filename = filename
         self.title = title
@@ -13,7 +13,7 @@ class backend(Tk):
         self.rows = rows
 
     def connect(self):
-        self.conn = sql.connect(r"C:\Findr\Tkinter_App\DB_Folder\conferencepaper.db")
+        self.conn = sql.connect("conferencepaper.db")
         self.cur = self.conn.cursor()
         self.cur.execute('''CREATE TABLE IF NOT EXISTS papers (
             filename text, title text, keywords text, author text, year integer, filepath text)''')
