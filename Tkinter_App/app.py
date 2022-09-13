@@ -135,7 +135,7 @@ class Engine(tk.Tk):
         self.tree.pack(side=tk.TOP, fill=tk.BOTH, expand=tk.YES, anchor=tk.NE) #Display search results in treeview widget.
         
         #test treeview insert data manually
-        self.tree.insert(parent="", index=tk.END, text="", values=("test1", "test2", "test3", "test4", "test5", "test6"))
+        #self.tree.insert(parent="", index=tk.END, text="", values=("test1", "test2", "test3", "test4", "test5", "test6"))
         
         # right-click menu from Treeview widget
         self.menu = tk.Menu(self, tearoff=False)
@@ -155,7 +155,7 @@ class Engine(tk.Tk):
     def view_command(self):
         self.tree.delete(0, tk.END)
         for row in backend.viewall():
-            self.tree.insert('', tk.END, values=row)
+            self.tree.insert('', tk.END, text=row[0], values=row[1:])
         
     
     #search all files
