@@ -145,24 +145,6 @@ class Engine(tk.Tk):
         self.menu.add_command(label='Export results to csv')
         
     
-    # def reset(self):
-    #     print("reset")
-    #     self.filename_entry.delete(0, tk.END)
-    #     self.title_entry.delete(0, tk.END)
-    #     self.keywords_entry.delete(0, tk.END)
-    #     self.author_entry.delete(0, tk.END)
-    #     self.year_entry.delete(0, tk.END)
-    #     self.filepath_entry.delete(0, tk.END)
-        
-    #view all data from the database.
-    # def view_command(self):
-    #     print("View")
-    #     be = backend("test","test","test","test","test","test","test")
-    #     self.tree.delete(0, tk.END)
-    #     for row in be.viewall():
-    #         self.tree.insert('', tk.END, text=row[0], values=row[1:])
-        
-    
     #search all files
     def searchall(self):
         #self.tree.delete(0, tk.END)
@@ -177,7 +159,8 @@ class Engine(tk.Tk):
         self.author_entry.delete(0, tk.END)
         self.year_entry.delete(0, tk.END)
         self.filepath_entry.delete(0, tk.END)
-        
+    
+    #view all data from the database.
     def viewall(self):
         print("view all")
         #self.tree.delete(0, tk.END)
