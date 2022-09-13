@@ -12,15 +12,6 @@ class backend():
         self.filepath = filepath
         self.rows = rows
 
-    #Don't need to have two sql.connect() in the same class, because connect is use in viewall()
-    # def connect(self):
-    #     self.conn = sql.connect("C:\Findr\Tkinter_App\DB_Folder\conferencepaper.db")
-    #     self.cur = self.conn.cursor()
-    #     self.cur.execute('''CREATE TABLE IF NOT EXISTS papers (
-    #         filename text, title text, keywords text, author text, year integer, filepath text)''')
-    #     self.conn.commit()
-    #     self.conn.close()
-
     def viewall(self):
         self.conn = sql.connect("C:\Findr\Tkinter_App\DB_Folder\conferencepaper.db")
         print(self.conn)
