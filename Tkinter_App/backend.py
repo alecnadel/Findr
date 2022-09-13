@@ -12,17 +12,20 @@ class backend():
         self.filepath = filepath
         self.rows = rows
 
-    def connect(self):
-        self.conn = sql.connect("conferencepaper.db")
-        self.cur = self.conn.cursor()
-        self.cur.execute('''CREATE TABLE IF NOT EXISTS papers (
-            filename text, title text, keywords text, author text, year integer, filepath text)''')
-        self.conn.commit()
-        self.conn.close()
+    #Don't need to have two sql.connect() in the same class, because connect is use in viewall()
+    # def connect(self):
+    #     self.conn = sql.connect("C:\Findr\Tkinter_App\DB_Folder\conferencepaper.db")
+    #     self.cur = self.conn.cursor()
+    #     self.cur.execute('''CREATE TABLE IF NOT EXISTS papers (
+    #         filename text, title text, keywords text, author text, year integer, filepath text)''')
+    #     self.conn.commit()
+    #     self.conn.close()
 
     def viewall(self):
-        self.conn = sql.connect("conferencepaper.db")
+        self.conn = sql.connect("C:\Findr\Tkinter_App\DB_Folder\conferencepaper.db")
+        print(self.conn)
         self.cur = self.conn.cursor()
+        print(self.cur)
         self.cur.execute("SELECT * FROM papers")
         rows = self.cur.fetchall()
         for row in rows:
@@ -38,6 +41,16 @@ class backend():
         rows = self.cur.fetchall()
         self.conn.close()
         return rows
+    
+    #testing code
+    # def mytest3(self):
+    #     print("I am here")
+    #     self.connect()
+    #     self.viewall()
+    #     self.search("test","test","test","test","test","test")
+        
+# be = backend("test","test","test","test","test","test","test")
+# be.viewall()
 # #connect the SQLite DB browser conferencepaperDB
 # def connect():
 #     conn = sql.connect("conferencepaper.db")

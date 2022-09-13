@@ -2,7 +2,7 @@ import tkinter as tk
 from tkinter import ttk
 import ttkthemes
 #import sqlite3 as sql
-import backend
+from backend import backend
 
 class Engine(tk.Tk):
     def __init__(self):
@@ -24,9 +24,11 @@ class Engine(tk.Tk):
         self.search_author_var = tk.StringVar()
         self.search_year_var = tk.StringVar()
         self.search_filepath_var = tk.StringVar()
-        self.searchall = tk.StringVar() #return search results based on the user input.
-        self.view_command = tk.StringVar() #view all the data from database.
-        self.reset = tk.StringVar() #clear all input.
+        
+        #I do not need below three lines of code.
+        # self.searchall = tk.StringVar() 
+        # self.view_command = tk.StringVar() 
+        # self.reset = tk.StringVar() 
         
         # window frames (items that nest in the frame)
         self.frm_main = ttk.Frame(self) #Refer to pack the main frame
@@ -102,9 +104,9 @@ class Engine(tk.Tk):
         # form buttons
         self.btn_search = ttk.Button(self.frm_top, text='Search', command=self.searchall) #Show data from SQLite database data, add command function to search.
         self.btn_search.grid(row=6, column=0, ipadx=35, padx=15, pady=10, sticky=tk.W)
-        self.btn_viewall = ttk.Button(self.frm_top, text='View All', command=self.view_command) #View all data from SQLite database.
+        self.btn_viewall = ttk.Button(self.frm_top, text='View All', command=self.viewall) #View all data from SQLite database.
         self.btn_viewall.grid(row=6, column=0, ipadx=35, padx=15, pady=10)
-        self.btn_reset = ttk.Button(self.frm_top, text="Clear", command=self.reset) #Reset the search form.
+        self.btn_reset = ttk.Button(self.frm_top, text="Clear", command=self.clearall)#Reset the search form.
         self.btn_reset.grid(row=6, column=0, ipadx=35, padx=15, pady=10, sticky=tk.E)
         
         #configure columns and rows for resizes
@@ -142,20 +144,23 @@ class Engine(tk.Tk):
         self.menu.add_command(label='Open file')
         self.menu.add_command(label='Export results to csv')
         
-    #clear all Entry inputs.
-    def reset(self):
-        self.filename_entry.delete(0, tk.END)
-        self.title_entry.delete(0, tk.END)
-        self.keywords_entry.delete(0, tk.END)
-        self.author_entry.delete(0, tk.END)
-        self.year_entry.delete(0, tk.END)
-        self.filepath_entry.delete(0, tk.END)
+    
+    # def reset(self):
+    #     print("reset")
+    #     self.filename_entry.delete(0, tk.END)
+    #     self.title_entry.delete(0, tk.END)
+    #     self.keywords_entry.delete(0, tk.END)
+    #     self.author_entry.delete(0, tk.END)
+    #     self.year_entry.delete(0, tk.END)
+    #     self.filepath_entry.delete(0, tk.END)
         
     #view all data from the database.
-    def view_command(self):
-        self.tree.delete(0, tk.END)
-        for row in backend.viewall():
-            self.tree.insert('', tk.END, text=row[0], values=row[1:])
+    # def view_command(self):
+    #     print("View")
+    #     be = backend("test","test","test","test","test","test","test")
+    #     self.tree.delete(0, tk.END)
+    #     for row in be.viewall():
+    #         self.tree.insert('', tk.END, text=row[0], values=row[1:])
         
     
     #search all files
@@ -163,6 +168,22 @@ class Engine(tk.Tk):
         #self.tree.delete(0, tk.END)
         for file in backend.search():
             self.tree.insert('', tk.END, values=file)
+            
+    #clear all Entry inputs.
+    def clearall(self):
+        self.filename_entry.delete(0, tk.END)
+        self.title_entry.delete(0, tk.END)
+        self.keywords_entry.delete(0, tk.END)
+        self.author_entry.delete(0, tk.END)
+        self.year_entry.delete(0, tk.END)
+        self.filepath_entry.delete(0, tk.END)
+        
+    def viewall(self):
+        print("view all")
+        #self.tree.delete(0, tk.END)
+        be = backend("test","test","test","test","test","test","test")
+        for row in be.viewall():
+            self.tree.insert('', tk.END, text=row[0], values=row[1:])
     
     # #search the files based on the entry inputs.
     # def render_search_result(self):
@@ -204,4 +225,5 @@ if __name__ == '__main__':
     
     searching = False
     app = Engine()
+    print("app")
     app.mainloop()
