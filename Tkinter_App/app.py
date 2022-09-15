@@ -15,7 +15,7 @@ class Engine(tk.Tk):
         self.wm_state('zoomed') #create full screen window
         self.platform = self.tk.call('tk', 'windowingsystem')
         self.geometry("1200x800")
-        self.resizable(False, False) #Width, Height
+        self.resizable(True, True) #Width, Height
         
         # search fields variables
         self.search_filename_var = tk.StringVar()
@@ -114,14 +114,24 @@ class Engine(tk.Tk):
         
         # search results show in Treeview
         self.tree = ttk.Treeview(self.frm_main)
+        self.tree_scroll = ttk.Scrollbar(self.frm_main) #Vertical Scrollbar for Treeview
+        self.tree_scroll.configure(command=self.tree.yview)
+        self.tree.configure(yscrollcommand=self.tree_scroll.set)
+        self.tree_scroll.pack(side=tk.RIGHT, fill=tk.BOTH)
+        self.tree.pack()
+        # self.treescroll = ttk.Scrollbar(self.frm_main) #Horizontal Scrollbar for Treeview
+        # self.treescroll.configure(command=self.tree.xview)
+        # self.tree.configure(xscrollcommand=self.tree_scroll.set)
+        # self.tree_scroll.pack(side=tk.BOTTOM)
+        # self.tree.pack()
         self.tree['columns'] = ('filename', 'title', 'keywords', 'author', 'year', 'filepath')
-        self.tree.column('#0', width=0, stretch=tk.NO, anchor=tk.E) # hide the first column
-        self.tree.column('filename', width=250, stretch=True, anchor=tk.E)
-        self.tree.column('title', width=350, stretch=True, anchor=tk.E)
-        self.tree.column('keywords', width=350, stretch=True, anchor=tk.E)
-        self.tree.column('author', width=220, stretch=True, anchor=tk.E)  
-        self.tree.column('year', width=100, stretch=True, anchor=tk.E) 
-        self.tree.column('filepath', width=330, stretch=True, anchor=tk.E)
+        self.tree.column('#0', width=0, stretch=tk.NO, anchor=tk.W) # hide the first column
+        self.tree.column('filename', width=250, stretch=True, anchor=tk.W)
+        self.tree.column('title', width=350, stretch=True, anchor=tk.W)
+        self.tree.column('keywords', width=350, stretch=True, anchor=tk.W)
+        self.tree.column('author', width=220, stretch=True, anchor=tk.W)  
+        self.tree.column('year', width=50, stretch=True, anchor=tk.CENTER) 
+        self.tree.column('filepath', width=300, stretch=True, anchor=tk.W)
         self.tree.heading('#0', text='', anchor=tk.CENTER) # hide the first column.
         self.tree.heading('filename', text='filename', anchor=tk.CENTER)
         self.tree.heading('title', text='title', anchor=tk.CENTER)
@@ -129,12 +139,11 @@ class Engine(tk.Tk):
         self.tree.heading('author', text='author', anchor=tk.CENTER)
         self.tree.heading('year', text='year', anchor=tk.CENTER)
         self.tree.heading('filepath', text='filepath', anchor=tk.CENTER) 
+        self.tree.pack(side=tk.TOP, fill=tk.BOTH, expand=tk.YES, anchor=tk.NW) #Display search results in treeview widget.
+        
         # create a vertical scrollbar to the right of the treeview
-        # tree_scroll = Scrollbar(self.frm_main, orient=tk.VERTICAL, command=self.tree.yview)
-        # tree_scroll.pack(side=tk.RIGHT, fill=tk.Y)
-        # tree_scroll.config(command=self.tree.yview)
-        # self.tree = ttk.Treeview(yscrollcommand=tree_scroll.set)
-        self.tree.pack(side=tk.TOP, fill=tk.BOTH, expand=tk.YES, anchor=tk.E) #Display search results in treeview widget.
+        
+        
         
         # right-click menu from Treeview widget
         self.menu = tk.Menu(self, tearoff=False)
