@@ -1,5 +1,5 @@
 import tkinter as tk
-from tkinter import ttk
+from tkinter import Scrollbar, ttk
 import ttkthemes
 #import sqlite3 as sql
 from backend import backend
@@ -15,7 +15,7 @@ class Engine(tk.Tk):
         self.wm_state('zoomed') #create full screen window
         self.platform = self.tk.call('tk', 'windowingsystem')
         self.geometry("1200x800")
-        self.resizable(True, True) #Width, Height
+        self.resizable(False, False) #Width, Height
         
         # search fields variables
         self.search_filename_var = tk.StringVar()
@@ -128,9 +128,13 @@ class Engine(tk.Tk):
         self.tree.heading('keywords', text='keywords', anchor=tk.CENTER)
         self.tree.heading('author', text='author', anchor=tk.CENTER)
         self.tree.heading('year', text='year', anchor=tk.CENTER)
-        self.tree.heading('filepath', text='filepath', anchor=tk.CENTER)    
-        self.tree.pack(side=tk.TOP, fill=tk.BOTH, expand=tk.YES, anchor=tk.NE) #Display search results in treeview widget.
-        
+        self.tree.heading('filepath', text='filepath', anchor=tk.CENTER) 
+        # create a vertical scrollbar to the right of the treeview
+        # tree_scroll = Scrollbar(self.frm_main, orient=tk.VERTICAL, command=self.tree.yview)
+        # tree_scroll.pack(side=tk.RIGHT, fill=tk.Y)
+        # tree_scroll.config(command=self.tree.yview)
+        # self.tree = ttk.Treeview(yscrollcommand=tree_scroll.set)
+        self.tree.pack(side=tk.TOP, fill=tk.BOTH, expand=tk.YES, anchor=tk.E) #Display search results in treeview widget.
         
         # right-click menu from Treeview widget
         self.menu = tk.Menu(self, tearoff=False)
@@ -160,7 +164,7 @@ class Engine(tk.Tk):
         be = backend("filename","title","keywords","author","year","filepath","rows") #create backend objects
         for row in be.viewall():
             self.tree.insert('', tk.END, text=row[0], values=row[1:])
-    
+        
     # #search the files based on the entry inputs.
     # def render_search_result(self):
     #     # get search values
