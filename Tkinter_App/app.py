@@ -25,11 +25,6 @@ class Engine(tk.Tk):
         self.search_year_var = tk.StringVar()
         self.search_filepath_var = tk.StringVar()
         
-        #I do not need below three lines of code.
-        # self.searchall = tk.StringVar() 
-        # self.view_command = tk.StringVar() 
-        # self.reset = tk.StringVar() 
-        
         # window frames (items that nest in the frame)
         self.frm_main = ttk.Frame(self) #Refer to pack the main frame
         self.frm_top = ttk.Frame(self.frm_main) #Refer to pack the Toplevel widgets to the window
@@ -136,8 +131,6 @@ class Engine(tk.Tk):
         self.tree.heading('filepath', text='filepath', anchor=tk.CENTER)    
         self.tree.pack(side=tk.TOP, fill=tk.BOTH, expand=tk.YES, anchor=tk.NE) #Display search results in treeview widget.
         
-        #test treeview insert data manually
-        #self.tree.insert(parent="", index=tk.END, text="", values=("test1", "test2", "test3", "test4", "test5", "test6"))
         
         # right-click menu from Treeview widget
         self.menu = tk.Menu(self, tearoff=False)
@@ -164,7 +157,7 @@ class Engine(tk.Tk):
     def viewall(self):
         print("view all")
         #self.tree.delete(0, tk.END)
-        be = backend("test","test","test","test","test","test","test")
+        be = backend("filename","title","keywords","author","year","filepath","rows") #create backend objects
         for row in be.viewall():
             self.tree.insert('', tk.END, text=row[0], values=row[1:])
     
