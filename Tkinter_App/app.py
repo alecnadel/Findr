@@ -1,9 +1,10 @@
 import tkinter as tk
-from tkinter import Scrollbar, ttk
+from tkinter import ttk, Scrollbar
 import ttkthemes
 #import sqlite3 as sql
 from backend import backend
 
+Scrollbar
 class Engine(tk.Tk):
     def __init__(self):
         super().__init__() #initialize the tk.TK class
@@ -112,23 +113,25 @@ class Engine(tk.Tk):
         self.grid_rowconfigure(1, weight=1)
         self.grid_rowconfigure(2, weight=1)
         
-        self.tree_yscrollbar = ttk.Scrollbar(self.frm_main, orient='vertical') #Vertical Scrollbar for Treeview
-        self.tree_xscrollbar = ttk.Scrollbar(self.frm_main, orient='horizontal') #Horizontal Scrollbar for Treeview
-        # search results show in Treeview
-        self.tree = ttk.Treeview(self.frm_main, yscrollcommand=self.tree_yscrollbar.set, xscrollcommand=self.tree_xscrollbar.set)
-        self.tree_yscrollbar.configure(command=self.tree.yview)
-        self.tree_xscrollbar.configure(command=self.tree.xview)
-        self.tree_yscrollbar.pack(side=tk.RIGHT, fill=tk.BOTH)
-        self.tree_xscrollbar.pack(side=tk.BOTTOM, fill=tk.BOTH)
         
+        self.yscrollbar = ttk.Scrollbar(self.frm_main, orient=tk.VERTICAL) #Vertical Scrollbar for Treeview
+        self.xscrollbar = ttk.Scrollbar(self.frm_main, orient=tk.HORIZONTAL) #Horizontal Scrollbar for Treeview
+        # search results show in Treeview
+        self.tree = ttk.Treeview(self.frm_main)
+        self.tree.configure(yscrollcommand=self.yscrollbar.set, xscrollcommand=self.xscrollbar.set)
+        self.yscrollbar.configure(command=self.tree.yview)
+        self.xscrollbar.configure(command=self.tree.xview)
+        self.yscrollbar.pack(side=tk.RIGHT, fill=tk.BOTH)
+        self.xscrollbar.pack(side=tk.BOTTOM, fill=tk.BOTH)
+        self.tree.configure(selectmode="extended")
         self.tree['columns'] = ('filename', 'title', 'keywords', 'author', 'year', 'filepath')
-        self.tree.column('#0', width=0, stretch=tk.NO, anchor=tk.W) # hide the first column
-        self.tree.column('filename', width=250, stretch=True, anchor=tk.W)
-        self.tree.column('title', width=350, stretch=True, anchor=tk.W)
-        self.tree.column('keywords', width=350, stretch=True, anchor=tk.W)
-        self.tree.column('author', width=220, stretch=True, anchor=tk.W)  
-        self.tree.column('year', width=50, stretch=True, anchor=tk.CENTER) 
-        self.tree.column('filepath', width=300, stretch=True, anchor=tk.W)
+        self.tree.column('#0', minwidth=0, width=0, stretch=tk.NO, anchor=tk.W) # hide the first column
+        self.tree.column('filename', minwidth=20, width=250, stretch=True, anchor=tk.W)
+        self.tree.column('title', minwidth=20, width=350, stretch=True, anchor=tk.W)
+        self.tree.column('keywords', minwidth=30, width=350, stretch=True, anchor=tk.W)
+        self.tree.column('author', minwidth=20, width=220, stretch=True, anchor=tk.W)  
+        self.tree.column('year', minwidth=10, width=50, stretch=True, anchor=tk.CENTER) 
+        self.tree.column('filepath', minwidth=20, width=300, stretch=True, anchor=tk.W)
         self.tree.heading('#0', text='', anchor=tk.CENTER) # hide the first column.
         self.tree.heading('filename', text='filename', anchor=tk.CENTER)
         self.tree.heading('title', text='title', anchor=tk.CENTER)
