@@ -9,7 +9,7 @@ class Engine(tk.Tk):
         super().__init__() #initialize the tk.TK class
         self.title('Findr')
         self.style = ttkthemes.ThemedStyle()
-        self.style.set_theme("breeze")
+        self.style.set_theme("clearlooks")
         self.iconbitmap('Dooffy-Characters-Q1.ico')
         self.withdraw()
         self.wm_state('zoomed') #create full screen window
@@ -112,18 +112,15 @@ class Engine(tk.Tk):
         self.grid_rowconfigure(1, weight=1)
         self.grid_rowconfigure(2, weight=1)
         
+        self.tree_yscrollbar = ttk.Scrollbar(self.frm_main, orient='vertical') #Vertical Scrollbar for Treeview
+        self.tree_xscrollbar = ttk.Scrollbar(self.frm_main, orient='horizontal') #Horizontal Scrollbar for Treeview
         # search results show in Treeview
-        self.tree = ttk.Treeview(self.frm_main)
-        self.tree_scroll = ttk.Scrollbar(self.frm_main) #Vertical Scrollbar for Treeview
-        self.tree_scroll.configure(command=self.tree.yview)
-        self.tree.configure(yscrollcommand=self.tree_scroll.set)
-        self.tree_scroll.pack(side=tk.RIGHT, fill=tk.BOTH)
-        self.tree.pack()
-        # self.treescroll = ttk.Scrollbar(self.frm_main) #Horizontal Scrollbar for Treeview
-        # self.treescroll.configure(command=self.tree.xview)
-        # self.tree.configure(xscrollcommand=self.tree_scroll.set)
-        # self.tree_scroll.pack(side=tk.BOTTOM)
-        # self.tree.pack()
+        self.tree = ttk.Treeview(self.frm_main, yscrollcommand=self.tree_yscrollbar.set, xscrollcommand=self.tree_xscrollbar.set)
+        self.tree_yscrollbar.configure(command=self.tree.yview)
+        self.tree_xscrollbar.configure(command=self.tree.xview)
+        self.tree_yscrollbar.pack(side=tk.RIGHT, fill=tk.BOTH)
+        self.tree_xscrollbar.pack(side=tk.BOTTOM, fill=tk.BOTH)
+        
         self.tree['columns'] = ('filename', 'title', 'keywords', 'author', 'year', 'filepath')
         self.tree.column('#0', width=0, stretch=tk.NO, anchor=tk.W) # hide the first column
         self.tree.column('filename', width=250, stretch=True, anchor=tk.W)
