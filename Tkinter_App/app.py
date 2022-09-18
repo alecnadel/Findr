@@ -154,7 +154,8 @@ class Engine(tk.Tk):
     #search all files
     def searchall(self):
         #self.tree.delete(0, tk.END)
-        for file in backend.search():
+        ce = backend("filename", "title", "keywords", "author", "year", "filepath", "rows")
+        for file in ce.search():
             self.tree.insert('', tk.END, values=file)
             
     #clear all Entry inputs.
