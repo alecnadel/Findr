@@ -27,7 +27,9 @@ class backend():
 
     def search(self,filename="",title="",keywords="",author="",year="",filepath=""): #=""pass in empty strings
         self.conn = sql.connect("C:\Findr\Tkinter_App\DB_Folder\conferencepaper.db")
+        print(self.conn)
         self.cur = self.conn.cursor()
+        print(self.cur)
         self.cur.execute("SELECT * FROM papers WHERE filename=? OR title=? OR keywords=? OR author=? OR year=? OR filepath=?", 
                     (filename,title,keywords,author,year,filepath))
         rows = self.cur.fetchall()
