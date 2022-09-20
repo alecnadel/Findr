@@ -19,34 +19,28 @@ class Engine(tk.Tk):
         self.resizable(True, True) #Width, Height
         
         # search fields variables
-        self.search_filename_var = tk.StringVar()
+       
         self.search_title_var = tk.StringVar()
         self.search_keywords_var = tk.StringVar()
         self.search_author_var = tk.StringVar()
         self.search_year_var = tk.StringVar()
-        self.search_filepath_var = tk.StringVar()
+        #self.search_filepath_var = tk.StringVar()
         
         # window frames (items that nest in the frame)
         self.frm_main = ttk.Frame(self) #Refer to pack the main frame
         self.frm_top = ttk.Frame(self.frm_main) #Refer to pack the Toplevel widgets to the window
         
         self.frm_searchfilter = ttk.Frame(self.frm_top)
-        self.frm_filename = ttk.Frame(self.frm_top)
         self.frm_title = ttk.Frame(self.frm_top)
         self.frm_keywords = ttk.Frame(self.frm_top)
         self.frm_author = ttk.Frame(self.frm_top)
         self.frm_year = ttk.Frame(self.frm_top)
-        self.frm_filepath = ttk.Frame(self.frm_top)
+        #self.frm_filepath = ttk.Frame(self.frm_top)
         
         #Text title
         self.searchfilter_lbl = ttk.Label(self.frm_searchfilter, text='Search filters', width=30)
         self.frm_searchfilter.grid(row=2, column=0, padx=6, pady=5, sticky=tk.NSEW)
         self.searchfilter_lbl.pack(side=tk.LEFT)
-        
-        # search filename input
-        self.filename_lbl = ttk.Label(self.frm_filename, text='Filename:', width=10)
-        self.filename_entry = ttk.Entry(self.frm_filename, textvariable=self.search_filename_var, width=80)
-        self.filename_entry.focus()
 
         #search title input
         self.title_lbl = ttk.Label(self.frm_title, text='Title:', width=10)
@@ -68,32 +62,29 @@ class Engine(tk.Tk):
         self.year_entry = ttk.Entry(self.frm_year, textvariable=self.search_year_var, width=80)
         self.year_entry.focus()
         
-        #search filepath input
-        self.filepath_lbl = ttk.Label(self.frm_filepath, text='Filepath:', width=10)
-        self.filepath_entry = ttk.Entry(self.frm_filepath, textvariable=self.search_filepath_var, width=80)
-        self.filepath_entry.focus()
+        # #search filepath input
+        # self.filepath_lbl = ttk.Label(self.frm_filepath, text='Filepath:', width=10)
+        # self.filepath_entry = ttk.Entry(self.frm_filepath, textvariable=self.search_filepath_var, width=80)
+        # self.filepath_entry.focus()
         
         # add widgets to the window
         self.frm_top.pack(side=tk.TOP, fill=tk.X) #Toplevel widget in Tkinter, create a window on top of other windows
         
-        self.frm_filename.grid(row=3, column=0, padx=6, pady=5, sticky=tk.NSEW)
-        self.filename_lbl.pack(side=tk.LEFT)
-        self.filename_entry.pack(side=tk.RIGHT, fill=tk.BOTH, expand=tk.YES)
-        self.frm_title.grid(row=3, column=2, padx=6, pady=5, sticky=tk.NSEW)
+        self.frm_title.grid(row=3, column=0, padx=6, pady=5, sticky=tk.NSEW)
         self.title_lbl.pack(side=tk.LEFT)
         self.title_entry.pack(side=tk.RIGHT, fill=tk.BOTH, expand=tk.YES)
-        self.frm_keywords.grid(row=4, column=0, padx=6, pady=5, sticky=tk.NSEW)
+        self.frm_keywords.grid(row=3, column=2, padx=6, pady=5, sticky=tk.NSEW)
         self.keywords_lbl.pack(side=tk.LEFT)
         self.keywords_entry.pack(side=tk.RIGHT, fill=tk.BOTH, expand=tk.YES)
-        self.frm_author.grid(row=4, column=2, padx=6, pady=5, sticky=tk.NSEW)
+        self.frm_author.grid(row=4, column=0, padx=6, pady=5, sticky=tk.NSEW)
         self.author_lbl.pack(side=tk.LEFT)
         self.author_entry.pack(side=tk.RIGHT, fill=tk.BOTH, expand=tk.YES)
-        self.frm_year.grid(row=5, column=0, padx=6, pady=5, sticky=tk.NSEW)
+        self.frm_year.grid(row=4, column=2, padx=6, pady=5, sticky=tk.NSEW)
         self.year_lbl.pack(side=tk.LEFT)
         self.year_entry.pack(side=tk.RIGHT, fill=tk.BOTH, expand=tk.YES)
-        self.frm_filepath.grid(row=5, column=2, padx=6, pady=5, sticky=tk.NSEW)
-        self.filepath_lbl.pack(side=tk.LEFT)
-        self.filepath_entry.pack(side=tk.RIGHT, fill=tk.BOTH, expand=tk.YES)
+        # self.frm_filepath.grid(row=5, column=0, padx=6, pady=5, sticky=tk.NSEW)
+        # self.filepath_lbl.pack(side=tk.LEFT)
+        # self.filepath_entry.pack(side=tk.RIGHT, fill=tk.BOTH, expand=tk.YES)
         
         self.frm_main.pack(fill=tk.BOTH, expand=tk.YES) #Pack main frame in Tkinter
         
@@ -124,21 +115,15 @@ class Engine(tk.Tk):
         self.yscrollbar.pack(side=tk.RIGHT, fill=tk.Y)
         self.xscrollbar.pack(side=tk.BOTTOM, fill=tk.X)
         self.tree.configure(selectmode="extended")
-        self.tree['columns'] = ('filename', 'title', 'keywords', 'author', 'year', 'filepath')
-        self.tree.column('#0', minwidth=0, width=0, stretch=tk.NO, anchor=tk.W) # hide the first column
-        self.tree.column('filename', minwidth=20, width=250, stretch=True, anchor=tk.W)
-        self.tree.column('title', minwidth=20, width=350, stretch=True, anchor=tk.W)
-        self.tree.column('keywords', minwidth=30, width=350, stretch=True, anchor=tk.W)
-        self.tree.column('author', minwidth=20, width=220, stretch=True, anchor=tk.W)  
-        self.tree.column('year', minwidth=10, width=50, stretch=True, anchor=tk.CENTER) 
-        self.tree.column('filepath', minwidth=20, width=300, stretch=True, anchor=tk.W)
-        self.tree.heading('#0', text='', anchor=tk.CENTER) # hide the first column.
-        self.tree.heading('filename', text='filename', anchor=tk.CENTER)
-        self.tree.heading('title', text='title', anchor=tk.CENTER)
-        self.tree.heading('keywords', text='keywords', anchor=tk.CENTER)
-        self.tree.heading('author', text='author', anchor=tk.CENTER)
-        self.tree.heading('year', text='year', anchor=tk.CENTER)
-        self.tree.heading('filepath', text='filepath', anchor=tk.CENTER) 
+        self.tree['columns'] = ('title', 'keywords', 'author', 'year')
+        self.tree.column('#0', width=550, stretch=tk.NO, anchor=tk.W) # hide the first column
+        self.tree.column('keywords', width=500, stretch=True, anchor=tk.W)
+        self.tree.column('author', width=300, stretch=True, anchor=tk.W)  
+        self.tree.column('year', width=100, stretch=True, anchor=tk.CENTER) 
+        self.tree.heading('#0', text='Title', anchor=tk.CENTER) # hide the first column.
+        self.tree.heading('keywords', text='Keywords', anchor=tk.CENTER)
+        self.tree.heading('author', text='Author', anchor=tk.CENTER)
+        self.tree.heading('year', text='Year', anchor=tk.CENTER)
         self.tree.pack(side=tk.TOP, fill=tk.BOTH, expand=tk.YES, anchor=tk.NW) #Display search results in treeview widget.
         
         # create a vertical scrollbar to the right of the treeview
@@ -154,24 +139,24 @@ class Engine(tk.Tk):
     #search all files
     def searchall(self):
         #self.tree.delete(0, tk.END)
-        ce = backend("filename", "title", "keywords", "author", "year", "filepath", "rows")
+        ce = backend("title", "keywords", "author", "year", "rows")
         for file in ce.search():
             self.tree.insert('', tk.END, values=file)
             
     #clear all Entry inputs.
     def clearall(self):
-        self.filename_entry.delete(0, tk.END)
+        #self.filename_entry.delete(0, tk.END)
         self.title_entry.delete(0, tk.END)
         self.keywords_entry.delete(0, tk.END)
         self.author_entry.delete(0, tk.END)
         self.year_entry.delete(0, tk.END)
-        self.filepath_entry.delete(0, tk.END)
+        #self.filepath_entry.delete(0, tk.END)
     
     #view all data from the database.
     def viewall(self):
         print("view all")
         #self.tree.delete(0, tk.END)
-        be = backend("filename","title","keywords","author","year","filepath","rows") #create backend objects
+        be = backend("title","keywords","author","year","rows") #create backend objects
         for row in be.viewall():
             self.tree.insert('', tk.END, text=row[0], values=row[1:])
         
