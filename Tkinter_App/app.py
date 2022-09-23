@@ -157,7 +157,7 @@ class Engine(tk.Tk):
     #view all data from the database.
     def viewall(self):
         print("view all")
-        #self.tree.delete(0, tk.END)
+        self.tree.delete(*self.tree.get_children())
         be = backend("title","keywords","author","year","rows") #create backend objects
         for row in be.viewall():
             self.tree.insert('', tk.END, values=row)
