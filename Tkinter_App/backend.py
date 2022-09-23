@@ -24,6 +24,7 @@ class backend():
         self.conn.close()
         return rows
 
+# #create a search function connect to the SQLite database
     def search(self,title="",keywords="",author="",year="",rows=""): #=""pass in empty strings
         self.conn = sql.connect("C:\Findr\Tkinter_App\DB_Folder\conferencefile.db")
         print(self.conn)
@@ -34,14 +35,3 @@ class backend():
         rows = self.cur.fetchall()
         self.conn.close()
         return rows
-
-
-# #create a search function connect to the SQLite database
-# def search(filename="",title="",keywords="",author="",year="",filepath=""): #=""pass in empty strings
-#     conn = sql.connect("conferencepaper.db")
-#     cur = conn.cursor()
-#     cur.execute("SELECT * FROM papers WHERE filename=? OR title=? OR keywords=? OR author=? OR year=? OR filepath=?", 
-#                 (filename,title,keywords,author,year,filepath))
-#     rows = cur.fetchall()
-#     conn.close()
-#     return rows

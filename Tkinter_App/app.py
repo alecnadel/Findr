@@ -116,11 +116,14 @@ class Engine(tk.Tk):
         self.xscrollbar.pack(side=tk.BOTTOM, fill=tk.X)
         self.tree.configure(selectmode="extended")
         self.tree['columns'] = ('title', 'keywords', 'author', 'year')
-        self.tree.column('#0', width=550, stretch=tk.NO, anchor=tk.W) # hide the first column
+        self.tree['show'] = 'headings'
+        
+        self.tree.column('title', width=380, stretch=True, anchor=tk.W)
         self.tree.column('keywords', width=500, stretch=True, anchor=tk.W)
-        self.tree.column('author', width=300, stretch=True, anchor=tk.W)  
-        self.tree.column('year', width=100, stretch=True, anchor=tk.CENTER) 
-        self.tree.heading('#0', text='Title', anchor=tk.CENTER) # hide the first column.
+        self.tree.column('author', width=220, stretch=True, anchor=tk.W)  
+        self.tree.column('year', width=10, stretch=True, anchor=tk.CENTER) 
+        
+        self.tree.heading('title', text='Title', anchor=tk.CENTER)
         self.tree.heading('keywords', text='Keywords', anchor=tk.CENTER)
         self.tree.heading('author', text='Author', anchor=tk.CENTER)
         self.tree.heading('year', text='Year', anchor=tk.CENTER)
@@ -145,12 +148,11 @@ class Engine(tk.Tk):
             
     #clear all Entry inputs.
     def clearall(self):
-        #self.filename_entry.delete(0, tk.END)
         self.title_entry.delete(0, tk.END)
         self.keywords_entry.delete(0, tk.END)
         self.author_entry.delete(0, tk.END)
         self.year_entry.delete(0, tk.END)
-        #self.filepath_entry.delete(0, tk.END)
+    
     
     #view all data from the database.
     def viewall(self):
@@ -158,7 +160,7 @@ class Engine(tk.Tk):
         #self.tree.delete(0, tk.END)
         be = backend("title","keywords","author","year","rows") #create backend objects
         for row in be.viewall():
-            self.tree.insert('', tk.END, text=row[0], values=row[1:])
+            self.tree.insert('', tk.END, values=row)
         
     # #search the files based on the entry inputs.
     # def render_search_result(self):
