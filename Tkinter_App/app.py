@@ -24,6 +24,7 @@ class Engine(tk.Tk):
         self.search_author_var = tk.StringVar()
         self.search_year_var = tk.StringVar()
         
+        
         # window frames (items that nest in the frame)
         self.frm_main = ttk.Frame(self) #Refer to pack the main frame
         self.frm_top = ttk.Frame(self.frm_main) #Refer to pack the Toplevel widgets to the window
@@ -134,7 +135,7 @@ class Engine(tk.Tk):
     def searchall(self):
         self.tree.delete(*self.tree.get_children())
     
-        ce = backend("title", "keywords", "author", "year", "rows")
+        ce = backend("title", "keywords", "author", "year", "rows","SEARCH")
         for file in ce.search():
             self.tree.insert('', tk.END, values=file)
             
@@ -150,7 +151,7 @@ class Engine(tk.Tk):
     def viewall(self):
         print("view all")
         self.tree.delete(*self.tree.get_children())
-        be = backend("title","keywords","author","year","rows") #create backend objects
+        be = backend("title","keywords","author","year","rows","SEARCH") #create backend objects
         for row in be.viewall():
             self.tree.insert('', tk.END, values=row)
         
