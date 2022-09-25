@@ -19,12 +19,10 @@ class Engine(tk.Tk):
         self.resizable(True, True) #Width, Height
         
         # search fields variables
-       
         self.search_title_var = tk.StringVar()
         self.search_keywords_var = tk.StringVar()
         self.search_author_var = tk.StringVar()
         self.search_year_var = tk.StringVar()
-        #self.search_filepath_var = tk.StringVar()
         
         # window frames (items that nest in the frame)
         self.frm_main = ttk.Frame(self) #Refer to pack the main frame
@@ -35,7 +33,6 @@ class Engine(tk.Tk):
         self.frm_keywords = ttk.Frame(self.frm_top)
         self.frm_author = ttk.Frame(self.frm_top)
         self.frm_year = ttk.Frame(self.frm_top)
-        #self.frm_filepath = ttk.Frame(self.frm_top)
         
         #Text title
         self.searchfilter_lbl = ttk.Label(self.frm_searchfilter, text='Search filters', width=30)
@@ -62,10 +59,6 @@ class Engine(tk.Tk):
         self.year_entry = ttk.Entry(self.frm_year, textvariable=self.search_year_var, width=80)
         self.year_entry.focus()
         
-        # #search filepath input
-        # self.filepath_lbl = ttk.Label(self.frm_filepath, text='Filepath:', width=10)
-        # self.filepath_entry = ttk.Entry(self.frm_filepath, textvariable=self.search_filepath_var, width=80)
-        # self.filepath_entry.focus()
         
         # add widgets to the window
         self.frm_top.pack(side=tk.TOP, fill=tk.X) #Toplevel widget in Tkinter, create a window on top of other windows
@@ -82,9 +75,7 @@ class Engine(tk.Tk):
         self.frm_year.grid(row=4, column=2, padx=6, pady=5, sticky=tk.NSEW)
         self.year_lbl.pack(side=tk.LEFT)
         self.year_entry.pack(side=tk.RIGHT, fill=tk.BOTH, expand=tk.YES)
-        # self.frm_filepath.grid(row=5, column=0, padx=6, pady=5, sticky=tk.NSEW)
-        # self.filepath_lbl.pack(side=tk.LEFT)
-        # self.filepath_entry.pack(side=tk.RIGHT, fill=tk.BOTH, expand=tk.YES)
+        
         
         self.frm_main.pack(fill=tk.BOTH, expand=tk.YES) #Pack main frame in Tkinter
         
@@ -141,7 +132,8 @@ class Engine(tk.Tk):
     
     #search all files
     def searchall(self):
-        #self.tree.delete(0, tk.END)
+        self.tree.delete(*self.tree.get_children())
+    
         ce = backend("title", "keywords", "author", "year", "rows")
         for file in ce.search():
             self.tree.insert('', tk.END, values=file)
