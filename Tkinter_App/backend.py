@@ -26,11 +26,11 @@ class backend():
     
 # #create a search function connect to the SQLite database
     def search(self,title="",keywords="",author="",year="",rows=""): #=""pass in empty strings
-        if self.SEARCH.get() != "":
-            # search_title = self.search_title_var.get()
-            # search_keywords = self.search_keywords_var.get()
-            # search_author = self.search_author_var.get()
-            # search_year = self.search_year_var.get()
+        
+            search_title = self.search_title_var.get()
+            search_keywords = self.search_keywords_var.get()
+            search_author = self.search_author_var.get()
+            search_year = self.search_year_var.get()
             
             
             self.conn = sql.connect("C:\Findr\Tkinter_App\DB_Folder\conferencefile.db")
@@ -40,8 +40,8 @@ class backend():
             self.cur.execute("""SELECT * FROM papers WHERE title LIKE ? 
                                 OR keywords LIKE ? OR author LIKE ? 
                                 OR year LIKE ?""",
-                                ('%' + str(self.SEARCH()) + '%', '%' + str(self.SEARCH()) + '%',
-                                '%' + str(self.SEARCH()) + '%', '%' + str(self.SEARCH()) + '%')
+                                ('%' + search_title + '%', '%' + search_keywords + '%',
+                                '%' + search_author + '%', '%' + search_year + '%')
                         (title,keywords,author,year))
             rows = self.cur.fetchall()
             self.conn.close()
