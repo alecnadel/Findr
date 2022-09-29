@@ -140,15 +140,19 @@ class Engine(tk.Tk):
         selections = []
         
         self.tree.delete(*self.tree.get_children())
-    
-        ce = backend("title", "keywords", "author", "year", "rows")
-        for file in ce.search():
-            if query.lower() in ce.search(file)['values'].lower():
-                self.tree.insert('', 'end', values=file)
-                selections.append(file)
-            self.tree.insert('', tk.END, values=file)
-        self.tree.selection_set(selections)
-            
+        
+        typed = self.title_entry.get()
+        if typed == '':
+            #backend.viewall = []
+            ce = backend("title", "keywords", "author", "year", "rows")
+            for file in ce.search():
+                if query.lower() in ce.search(file).lower():
+                    selections.append(file)
+                    self.tree.insert('', 'end', values=file)
+                    selections.append(file)
+                self.tree.insert('', tk.END, values=file)
+            self.tree.selection_set(selections)
+                
     #clear all Entry inputs.
     def clearall(self):
         self.title_entry.delete(0, tk.END)
