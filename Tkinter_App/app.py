@@ -143,7 +143,7 @@ class Engine(tk.Tk):
     
         ce = backend("title", "keywords", "author", "year", "rows")
         for file in ce.search():
-            if query in ce.search(file):
+            if query.lower() in ce.search(file)['values'].lower():
                 self.tree.insert('', 'end', values=file)
                 selections.append(file)
             self.tree.insert('', tk.END, values=file)
