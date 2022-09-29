@@ -133,11 +133,12 @@ class Engine(tk.Tk):
     
     #search all files
     def searchall(self):
-        self.tree.delete(*self.tree.get_children())
-    
-        ce = backend("title", "keywords", "author", "year", "rows","SEARCH")
-        for file in ce.search():
-            self.tree.insert('', tk.END, values=file)
+        
+            self.tree.delete(*self.tree.get_children())
+        
+            ce = backend("title", "keywords", "author", "year", "rows")
+            for file in ce.search():
+                self.tree.insert('', tk.END, values=file)
             
     #clear all Entry inputs.
     def clearall(self):
@@ -151,7 +152,7 @@ class Engine(tk.Tk):
     def viewall(self):
         print("view all")
         self.tree.delete(*self.tree.get_children())
-        be = backend("title","keywords","author","year","rows","SEARCH") #create backend objects
+        be = backend("title","keywords","author","year","rows") #create backend objects
         for row in be.viewall():
             self.tree.insert('', tk.END, values=row)
         
@@ -170,21 +171,21 @@ class Engine(tk.Tk):
     #         self.tree.delete(i)
         
     #     # search database
-    #     self.conn = sql.connect("conferencepaper.db")
+    #     self.conn = sql.connect("C:\Findr\Tkinter_App\DB_Folder\conferencefile.db")
     #     self.cur = self.conn.cursor()
     #     self.cur.execute("""SELECT * FROM papers 
-    #                         WHERE filename LIKE ? OR title LIKE ? 
+    #                         WHERE title LIKE ? 
     #                         OR keywords LIKE ? OR author LIKE ? 
-    #                         OR year LIKE ? OR filepath LIKE ?""",
-    #                         ('%' + search_filename + '%', '%' + search_title + '%', 
+    #                         OR year LIKE ?""",
+    #                         ('%' + search_title + '%', 
     #                         '%' + search_keywords + '%', '%' + search_author + '%', 
-    #                         '%' + search_year + '%', '%' + search_filepath + '%'))
+    #                         '%' + search_year + '%'))
     #     rows = self.cur.fetchall()
     #     self.conn.close()
         
     #     # display search results
     #     for row in rows:
-    #         self.tree.insert('', 'end', values=(row[0], row[1], row[2], row[3], row[4], row[5]))
+    #         self.tree.insert('', 'end', values=row)
     #         print(row)
    
         
