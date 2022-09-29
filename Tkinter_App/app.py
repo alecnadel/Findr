@@ -133,12 +133,21 @@ class Engine(tk.Tk):
     
     #search all files
     def searchall(self):
+        query = self.title_entry.get()
+        query = self.keywords_entry.get()
+        query = self.author_entry.get()
+        query = self.year_entry.get()
+        selections = []
         
-            self.tree.delete(*self.tree.get_children())
-        
-            ce = backend("title", "keywords", "author", "year", "rows")
-            for file in ce.search():
-                self.tree.insert('', tk.END, values=file)
+        self.tree.delete(*self.tree.get_children())
+    
+        ce = backend("title", "keywords", "author", "year", "rows")
+        for file in ce.search():
+            if query in ce.search(file):
+                self.tree.insert('', 'end', values=file)
+                selections.append(file)
+            self.tree.insert('', tk.END, values=file)
+        self.tree.selection_set(selections)
             
     #clear all Entry inputs.
     def clearall(self):
