@@ -18,8 +18,8 @@ class backend():
         print(self.cur)
         self.cur.execute("SELECT * FROM papers")
         rows = self.cur.fetchall()
-        for row in rows:
-            print(row)
+        # for row in rows:
+        #     print(row)
         self.conn.close()
         return rows
     
@@ -31,12 +31,15 @@ class backend():
             print(self.conn)
             self.cur = self.conn.cursor()
             print(self.cur)
-            self.cur.execute("""SELECT * FROM papers WHERE title=?
-                                OR keywords=? OR author=? 
-                                OR year=?""",
-                                # ('%' + str(self.search_title_var) + '%', '%' + str(self.search_keywords_var) + '%',
-                                # '%' + str(self.search_author_var) + '%', '%' + str(self.search_year_var) + '%')
-                        (title,keywords,author,year))
+            
+            # self.cur.execute("""SELECT * FROM papers WHERE title LIKE ?
+            #                     OR keywords LIKE ? OR author LIKE ? 
+            #                     OR year = ?""",
+            #                     ('%' + str(title) + '%', '%' + str(keywords) + '%',
+            #                     '%' + str(author) + '%', year))
+            
+            self.cur.execute("""select * from papers where title like '%Plant%' """, title)
             rows = self.cur.fetchall()
+            print(rows)
             self.conn.close()
             return rows
