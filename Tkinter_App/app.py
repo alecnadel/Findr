@@ -137,20 +137,7 @@ class Engine(tk.Tk):
         search_keyword = self.keywords_entry.get()
         search_author = self.author_entry.get()
         search_year = self.year_entry.get()
-
         print(search_title)
-        
-        # typed = self.title_entry.get()
-        # if typed == '':
-        #     #backend.viewall = []
-        #     ce = backend("title", "keywords", "author", "year", "rows")
-        #     for file in ce.search():
-        #         if query.lower() in ce.search(file).lower():
-        #             selections.append(file)
-        #             self.tree.insert('', 'end', values=file)
-        #             selections.append(file)
-        #         self.tree.insert('', tk.END, values=file)
-        #     self.tree.selection_set(selections)
         
         ce = backend("title", "keywords", "author", "year", "rows")
         self.tree.delete(*self.tree.get_children())
@@ -175,14 +162,12 @@ class Engine(tk.Tk):
             self.tree.insert('', tk.END, values=row)
         
     # #search the files based on the entry inputs.
-    # def render_search_result(self):
+    # def searchall(self):
     #     # get search values
-    #     search_filename = self.search_filename_var.get()
     #     search_title = self.search_title_var.get()
     #     search_keywords = self.search_keywords_var.get()
     #     search_author = self.search_author_var.get()
     #     search_year = self.search_year_var.get()
-    #     search_filepath = self.search_filepath_var.get()
         
     #     # clear previous search results
     #     for i in self.tree.get_children():
