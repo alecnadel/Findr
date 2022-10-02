@@ -19,10 +19,10 @@ class Engine(tk.Tk):
         self.resizable(True, True) #Width, Height
         
         # search fields variables
-        self.search_title_var = tk.StringVar()
-        self.search_keywords_var = tk.StringVar()
-        self.search_author_var = tk.StringVar()
-        self.search_year_var = tk.StringVar()
+        title_var = tk.StringVar()
+        keywords_var = tk.StringVar()
+        author_var = tk.StringVar()
+        year_var = tk.StringVar()
         
         
         # window frames (items that nest in the frame)
@@ -42,22 +42,22 @@ class Engine(tk.Tk):
 
         #search title input
         self.title_lbl = ttk.Label(self.frm_title, text='Title:', width=10)
-        self.title_entry = ttk.Entry(self.frm_title, textvariable=self.search_title_var, width=80)
+        self.title_entry = ttk.Entry(self.frm_title, textvariable=title_var, width=80)
         self.title_entry.focus()
         
         #search keywords input
         self.keywords_lbl = ttk.Label(self.frm_keywords, text='Keywords:', width=10)
-        self.keywords_entry = ttk.Entry(self.frm_keywords, textvariable=self.search_keywords_var, width=80)
+        self.keywords_entry = ttk.Entry(self.frm_keywords, textvariable=keywords_var, width=80)
         self.keywords_entry.focus()
         
         #search author input
         self.author_lbl = ttk.Label(self.frm_author, text='Author(s):', width=10)
-        self.author_entry = ttk.Entry(self.frm_author, textvariable=self.search_author_var, width=80)
+        self.author_entry = ttk.Entry(self.frm_author, textvariable=author_var, width=80)
         self.author_entry.focus()
         
         #search year input
         self.year_lbl = ttk.Label(self.frm_year, text='Year:', width=10)
-        self.year_entry = ttk.Entry(self.frm_year, textvariable=self.search_year_var, width=80)
+        self.year_entry = ttk.Entry(self.frm_year, textvariable=year_var, width=80)
         self.year_entry.focus()
         
         
@@ -133,15 +133,15 @@ class Engine(tk.Tk):
     
     #search all files
     def searchall(self):
-        search_title = self.title_entry.get()
-        search_keywords = self.keywords_entry.get()
-        search_author = self.author_entry.get()
-        search_year = self.year_entry.get()
-        print(search_title)
+        title = self.title_entry.get()
+        keywords = self.keywords_entry.get()
+        author = self.author_entry.get()
+        year = self.year_entry.get()
+        print(title, keywords, author, year)
         
         ce = backend("title", "keywords", "author", "year", "rows")
         self.tree.delete(*self.tree.get_children())
-        for file in ce.search(search_title, search_keywords, search_author, search_year):
+        for file in ce.search(title, keywords, author, year):
             self.tree.insert('', tk.END, values=file)
         
                 
@@ -160,39 +160,6 @@ class Engine(tk.Tk):
         be = backend("title","keywords","author","year","rows") #create backend objects
         for row in be.viewall():
             self.tree.insert('', tk.END, values=row)
-        
-    # #search the files based on the entry inputs.
-    # def searchall(self):
-    #     # get search values
-    #     search_title = self.search_title_var.get()
-    #     search_keywords = self.search_keywords_var.get()
-    #     search_author = self.search_author_var.get()
-    #     search_year = self.search_year_var.get()
-        
-    #     # clear previous search results
-    #     for i in self.tree.get_children():
-    #         self.tree.delete(i)
-        
-    #     # search database
-    #     self.conn = sql.connect("C:\Findr\Tkinter_App\DB_Folder\conferencefile.db")
-    #     self.cur = self.conn.cursor()
-    #     self.cur.execute("""SELECT * FROM papers 
-    #                         WHERE title LIKE ? 
-    #                         OR keywords LIKE ? OR author LIKE ? 
-    #                         OR year LIKE ?""",
-    #                         ('%' + search_title + '%', 
-    #                         '%' + search_keywords + '%', '%' + search_author + '%', 
-    #                         '%' + search_year + '%'))
-    #     rows = self.cur.fetchall()
-    #     self.conn.close()
-        
-    #     # display search results
-    #     for row in rows:
-    #         self.tree.insert('', 'end', values=row)
-    #         print(row)
-   
-        
-       
 
            
 if __name__ == '__main__':

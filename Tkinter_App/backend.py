@@ -24,22 +24,14 @@ class backend():
         return rows
     
 #create a search function connect to the SQLite database
-    def search(self,search_title="",search_keywords="",search_author="",search_year=""): #=""pass in empty strings as value.
+    def search(self,title="",keywords="",author="",year=""): #=""pass in empty strings as value.
         
             
             self.conn = sql.connect("C:\Findr\Tkinter_App\DB_Folder\conferencefile.db")
             print(self.conn)
             self.cur = self.conn.cursor()
             print(self.cur)
-            
-            self.cur.execute("""SELECT * FROM papers WHERE title LIKE %s
-                                OR keywords LIKE %s OR author LIKE %s 
-                                OR year LIKE %s""")
-                            #     ('%' + search_title + '%', 
-                            # '%' + search_keywords + '%', '%' + search_author + '%', 
-                            # '%' + search_year + '%'))
-            
-            #self.cur.execute("select * from papers where title like '%Plant%' ", search_title)
+            self.cur.execute("SELECT * FROM papers WHERE title=? OR keywords=? OR author=? OR year=?", (title,keywords,author,year))
             rows = self.cur.fetchall()
             print(rows)
             self.conn.close()
