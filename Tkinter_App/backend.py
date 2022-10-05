@@ -31,7 +31,11 @@ class backend():
             print(self.conn)
             self.cur = self.conn.cursor()
             print(self.cur)
-            self.cur.execute("SELECT * FROM papers WHERE title=? OR keywords=? OR author=? OR year=?", (title,keywords,author,year))
+            # query = f"SELECT * FROM papers WHERE title LIKE "%title%" OR keywords LIKE "%keywords%" OR author LIKE "%author%" OR year LIKE "%year%";"
+            # self.cur.execute(query)
+            #self.cur.execute("SELECT * FROM papers WHERE title LIKE 'a-z' OR keywords LIKE 'a-z'OR author LIKE 'a-z' OR year LIKE '0-9'", (title,keywords,author,year))
+            #self.cur.execute("SELECT * FROM papers WHERE title LIKE '[a-z]%' OR keywords LIKE '[a-z]%' OR author LIKE '[a-z]%' OR year LIKE '[0-9]%';", (title,keywords,author,year,))
+            self.cur.execute("SELECT * FROM papers WHERE title LIKE '%s' OR keywords LIKE '%s' OR author LIKE '%s' OR year LIKE '%s';" %(title,keywords,author,year,))
             rows = self.cur.fetchall()
             print(rows)
             self.conn.close()
