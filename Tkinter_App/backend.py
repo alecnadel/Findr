@@ -33,9 +33,14 @@ class backend():
             print(self.cur)
             # query = f"SELECT * FROM papers WHERE title LIKE "%title%" OR keywords LIKE "%keywords%" OR author LIKE "%author%" OR year LIKE "%year%";"
             # self.cur.execute(query)
+            #self.cur.execute("SELECT * FROM papers WHERE title LIKE '%[A-Za-z]%' OR keywords LIKE '%[A-Za-z]%' OR author LIKE '%[A-Za-z]%' OR year LIKE '%[0~9]%'", (title,keywords,author,year))
             #self.cur.execute("SELECT * FROM papers WHERE title LIKE 'a-z' OR keywords LIKE 'a-z'OR author LIKE 'a-z' OR year LIKE '0-9'", (title,keywords,author,year))
             #self.cur.execute("SELECT * FROM papers WHERE title LIKE '[a-z]%' OR keywords LIKE '[a-z]%' OR author LIKE '[a-z]%' OR year LIKE '[0-9]%';", (title,keywords,author,year,))
-            self.cur.execute("SELECT * FROM papers WHERE title LIKE '%s' OR keywords LIKE '%s' OR author LIKE '%s' OR year LIKE '%s';" %(title,keywords,author,year,))
+            #self.cur.execute("SELECT * FROM papers WHERE title LIKE %a% OR keywords LIKE %a% OR author LIKE %a% OR year LIKE %0-9%;" %(title,keywords,author,year,))
+            #self.cur.execute("SELECT * FROM papers WHERE title LIKE '%s' OR keywords LIKE '%s' OR author LIKE '%s' OR year LIKE '%s';" %(title,keywords,author,year,))
+            myParam = '%s{}%s'.format(title,keywords,author,year)
+            sqlQuery = "SELECT * FROM papers WHERE title LIKE '%s' OR keywords LIKE '%s' OR author LIKE '%s' OR year LIKE '%s'"
+            self.cur.execute(sqlQuery, (myParam))
             rows = self.cur.fetchall()
             print(rows)
             self.conn.close()
