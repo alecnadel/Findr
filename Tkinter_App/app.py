@@ -1,10 +1,11 @@
 import tkinter as tk
-from tkinter import ttk, Scrollbar
+from tkinter import ttk
+from tkinter import Scrollbar
 import ttkthemes
 #import sqlite3 as sql
 from backend import backend
 
-Scrollbar
+
 class Engine(tk.Tk):
     def __init__(self):
         super().__init__() #initialize the tk.TK class
