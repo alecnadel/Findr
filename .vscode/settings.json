@@ -8,5 +8,7 @@
         }
     ],
     "sqltools.useNodeRuntime": true,
-    "python.analysis.typeCheckingMode": "off"
+    "python.analysis.typeCheckingMode": "basic",
+    "explainDev.authentication.key": "bVqSCu127C",
+    "explainDev.authentication.email": "fndcplanning@gmail.com"
 }

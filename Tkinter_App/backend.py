@@ -12,7 +12,7 @@ class backend():
 
 #View all data and connection to the database.
     def viewall(self):
-        self.conn = sql.connect("C:\Findr\Tkinter_App\DB_Folder\conferencefile.db")
+        self.conn = sql.connect("C:\\Findr\\Tkinter_App\\DB_Folder\\conferencefile.db")
         print(self.conn)
         self.cur = self.conn.cursor()
         print(self.cur)
@@ -27,7 +27,7 @@ class backend():
     def search(self,title="",keywords="",author="",year=""): #=""pass in empty strings as value.
         
             
-            self.conn = sql.connect("C:\Findr\Tkinter_App\DB_Folder\conferencefile.db")
+            self.conn = sql.connect("C:\\Findr\\Tkinter_App\\DB_Folder\\conferencefile.db")
             print(self.conn)
             self.cur = self.conn.cursor()
             print(self.cur)
@@ -38,7 +38,7 @@ class backend():
             #self.cur.execute("SELECT * FROM papers WHERE title LIKE '[a-z]%' OR keywords LIKE '[a-z]%' OR author LIKE '[a-z]%' OR year LIKE '[0-9]%';", (title,keywords,author,year,))
             #self.cur.execute("SELECT * FROM papers WHERE title LIKE %a% OR keywords LIKE %a% OR author LIKE %a% OR year LIKE %0-9%;" %(title,keywords,author,year,))
             #self.cur.execute("SELECT * FROM papers WHERE title LIKE '%s' OR keywords LIKE '%s' OR author LIKE '%s' OR year LIKE '%s';" %(title,keywords,author,year,))
-            myParam = '%s{}%s'.format(title,keywords,author,year)
+            myParam = '%s{}%s'.format(title or keywords or author or year)
             sqlQuery = "SELECT * from papers WHERE title LIKE ? OR keywords LIKE ? OR author LIKE ? OR year=?"
             self.cur.execute(sqlQuery, (myParam))
             rows = self.cur.fetchall()
