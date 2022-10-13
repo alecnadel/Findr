@@ -38,9 +38,9 @@ class backend():
             #self.cur.execute("SELECT * FROM papers WHERE title LIKE '[a-z]%' OR keywords LIKE '[a-z]%' OR author LIKE '[a-z]%' OR year LIKE '[0-9]%';", (title,keywords,author,year,))
             #self.cur.execute("SELECT * FROM papers WHERE title LIKE %a% OR keywords LIKE %a% OR author LIKE %a% OR year LIKE %0-9%;" %(title,keywords,author,year,))
             #self.cur.execute("SELECT * FROM papers WHERE title LIKE '%s' OR keywords LIKE '%s' OR author LIKE '%s' OR year LIKE '%s';" %(title,keywords,author,year,))
-            myParam = '%s{}%s'.format(title or keywords or author or year)
+            myParam = '%' + input() + '%'.format(title,keywords,author,year,)
             sqlQuery = "SELECT * from papers WHERE title LIKE ? OR keywords LIKE ? OR author LIKE ? OR year=?"
-            self.cur.execute(sqlQuery, (myParam))
+            self.cur.execute(sqlQuery, (myParam,))
             rows = self.cur.fetchall()
             print(rows)
             self.conn.close()

@@ -10,5 +10,6 @@
     "sqltools.useNodeRuntime": true,
     "python.analysis.typeCheckingMode": "basic",
     "explainDev.authentication.key": "bVqSCu127C",
-    "explainDev.authentication.email": "fndcplanning@gmail.com"
+    "explainDev.authentication.email": "fndcplanning@gmail.com",
+    "explainDev.explanations.level": "advanced"
 }
