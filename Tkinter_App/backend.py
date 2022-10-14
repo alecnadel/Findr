@@ -37,10 +37,23 @@ class backend():
             #self.cur.execute("SELECT * FROM papers WHERE title LIKE 'a-z' OR keywords LIKE 'a-z'OR author LIKE 'a-z' OR year LIKE '0-9'", (title,keywords,author,year))
             #self.cur.execute("SELECT * FROM papers WHERE title LIKE '[a-z]%' OR keywords LIKE '[a-z]%' OR author LIKE '[a-z]%' OR year LIKE '[0-9]%';", (title,keywords,author,year,))
             #self.cur.execute("SELECT * FROM papers WHERE title LIKE %a% OR keywords LIKE %a% OR author LIKE %a% OR year LIKE %0-9%;" %(title,keywords,author,year,))
-            #self.cur.execute("SELECT * FROM papers WHERE title LIKE '%s' OR keywords LIKE '%s' OR author LIKE '%s' OR year LIKE '%s';" %(title,keywords,author,year,))
-            myParam = '%' + input() + '%'.format(title,keywords,author,year,)
-            sqlQuery = "SELECT * from papers WHERE title LIKE ? OR keywords LIKE ? OR author LIKE ? OR year=?"
-            self.cur.execute(sqlQuery, (myParam,))
+            #self.cur.execute("SELECT * FROM papers WHERE title LIKE '%s' OR keywords LIKE '%s' OR author LIKE '%s' OR year = '%s' ;" %(title, keywords, author, year,))
+            # myParam = f'%{input()}%'.format(title,keywords,author,year,)
+            # sqlQuery = "SELECT * from papers WHERE title LIKE '?' OR keywords LIKE '?' OR author LIKE '?' OR year='?'"
+            # self.cur.execute(sqlQuery, (myParam,))
+            SQL = "select * from papers where true"
+            if author != "":
+                SQL=SQL+"AND author LIKE %s", (author,)
+            SQL = "select * from papers where true"
+            if title != "":
+                SQL=SQL+"AND title LIKE %s", (title,)
+            SQL = "select * from papers where true"
+            if keywords != "":
+                SQL=SQL+"AND keywords LIKE %s", (keywords,)
+            SQL = "select * from papers where true"
+            if year != "":
+                SQL=SQL+"AND year LIKE %s", (year,)
+            
             rows = self.cur.fetchall()
             print(rows)
             self.conn.close()
