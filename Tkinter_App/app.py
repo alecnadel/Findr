@@ -162,7 +162,7 @@ class Engine(tk.Tk):
            
 if __name__ == '__main__':
     
-    searching = False
+    #searching = False
     app = Engine()
     print("app")
     app.mainloop()
