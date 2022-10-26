@@ -1,6 +1,6 @@
 import tkinter as tk
 from tkinter import ttk
-from tkinter import Scrollbar
+from tkinter import Scrollbar #visual indicator for scrollbar not used?
 import ttkthemes
 #import sqlite3 as sql
 from backend import backend
@@ -122,9 +122,6 @@ class Engine(tk.Tk):
         self.tree.heading('year', text='Year', anchor=tk.CENTER)
         self.tree.pack(side=tk.TOP, fill=tk.BOTH, expand=tk.YES, anchor=tk.NW) #Display search results in treeview widget.
         
-        # create a vertical scrollbar to the right of the treeview
-        
-        
         
         # right-click menu from Treeview widget
         self.menu = tk.Menu(self, tearoff=False)
@@ -132,7 +129,7 @@ class Engine(tk.Tk):
         self.menu.add_command(label='Export results to csv')
         
     
-    #search all files
+    #search data from SQLite database based on user input
     def searchall(self):
         title = self.title_entry.get()
         keywords = self.keywords_entry.get()
@@ -165,7 +162,7 @@ class Engine(tk.Tk):
            
 if __name__ == '__main__':
     
-    searching = False
+    #searching = False
     app = Engine()
     print("app")
     app.mainloop()
