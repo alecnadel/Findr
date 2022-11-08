@@ -26,35 +26,41 @@ class backend():
 #create a search function connect to the SQLite database
     def search(self,title="",keywords="",author="",year=""): #=""pass in empty strings as value.
         
-            
+            #'?' is a placehold for SQLite DB, '%s' is a placeholder for MySQL database.
             self.conn = sql.connect("C:\\Findr\\Tkinter_App\\DB_Folder\\conferencefile.db")
             print(self.conn)
             self.cur = self.conn.cursor()
             print(self.cur)
-            # query = f"SELECT * FROM papers WHERE title LIKE "%title%" OR keywords LIKE "%keywords%" OR author LIKE "%author%" OR year LIKE "%year%";"
-            # self.cur.execute(query)
-            #self.cur.execute("SELECT * FROM papers WHERE title LIKE '%[A-Za-z]%' OR keywords LIKE '%[A-Za-z]%' OR author LIKE '%[A-Za-z]%' OR year LIKE '%[0~9]%'", (title,keywords,author,year))
-            #self.cur.execute("SELECT * FROM papers WHERE title LIKE 'a-z' OR keywords LIKE 'a-z'OR author LIKE 'a-z' OR year LIKE '0-9'", (title,keywords,author,year))
-            #self.cur.execute("SELECT * FROM papers WHERE title LIKE '[a-z]%' OR keywords LIKE '[a-z]%' OR author LIKE '[a-z]%' OR year LIKE '[0-9]%';", (title,keywords,author,year,))
-            #self.cur.execute("SELECT * FROM papers WHERE title LIKE %a% OR keywords LIKE %a% OR author LIKE %a% OR year LIKE %0-9%;" %(title,keywords,author,year,))
-            self.cur.execute("SELECT * FROM papers WHERE title LIKE '%s' OR keywords LIKE '%s' OR author LIKE '%s' OR year = '%s' ;" %(title, keywords, author, year,))
-            # myParam = f'%{input()}%'.format(title,keywords,author,year,)
-            # sqlQuery = "SELECT * from papers WHERE title LIKE '?' OR keywords LIKE '?' OR author LIKE '?' OR year='?'"
-            # self.cur.execute(sqlQuery, (myParam,))
-            # SQL = "select * from papers where true"
-            # if author != '':
-            #     SQL=SQL+"AND author LIKE '%s'", (author,)
-            # SQL = "select * from papers where true"
-            # if title != '':
-            #     SQL=SQL+"AND title LIKE '%s'", (title,)
-            # SQL = "select * from papers where true"
-            # if keywords != '':
-            #     SQL=SQL+"AND keywords LIKE '%s'", (keywords,)
-            # SQL = "select * from papers where true"
-            # if year != '':
-            #     SQL=SQL+"AND year = '%s'", (year,)
+            #self.cur.execute("SELECT * FROM papers WHERE title LIKE '%s' OR keywords LIKE '%s' OR author LIKE '%s' OR year = '%s' ;" %(title, keywords, author, year,))
+            sqlstr="SELECT * FROM papers WHERE true" #true means you do not need to change anything if no other WHERE conditions applied.
+            paramslist=[]
+            if title != "":
+                titlesrch="%"+title.lower()+"%"
+                paramslist.append(titlesrch)
+                sqlstr=sqlstr+" AND title LIKE ?"
+            if keywords != "":
+                keywordssrch="%"+keywords.lower()+"%"
+                paramslist.append(keywordssrch)
+                sqlstr=sqlstr+" AND keywords LIKE ?"
+            if author != "":
+                authorsrch="%"+author.lower()+"%"
+                paramslist.append(authorsrch)
+                sqlstr=sqlstr+" AND author LIKE ?"
+            if year != "":    
+                paramslist.append(year)
+                sqlstr=sqlstr+" AND year = ?"
+            sqlstr=sqlstr+";"
+            print(sqlstr)
+            params=tuple(paramslist)
+            print(params)
             
+            if len(params)==0:
+                self.cur.execute(sqlstr)
+            else:
+                self.cur.execute(sqlstr,params)
+                
             rows = self.cur.fetchall()
-            print(rows)
+            #print(len(rows))
+            #print(rows)
             self.conn.close()
             return rows
