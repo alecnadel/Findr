@@ -1,5 +1,5 @@
 import sqlite3 as sql
-
+# Above import the database module.
 
 #create a class object, function nested in python class.
 class backend():
@@ -33,11 +33,11 @@ class backend():
             print(self.cur)
             #self.cur.execute("SELECT * FROM papers WHERE title LIKE '%s' OR keywords LIKE '%s' OR author LIKE '%s' OR year = '%s' ;" %(title, keywords, author, year,))
             sqlstr="SELECT * FROM papers WHERE true" #true means you do not need to change anything if no other WHERE conditions applied.
-            paramslist=[]
+            paramslist=[] #create a list to store the parameters.
             if title != "":
-                titlesrch="%"+title.lower()+"%"
+                titlesrch="%"+title.lower()+"%" #add % to the title to search for partial matches.
                 paramslist.append(titlesrch)
-                sqlstr=sqlstr+" AND title LIKE ?"
+                sqlstr=sqlstr+" AND title LIKE ?" #add the SQL string to find the matching input.
             if keywords != "":
                 keywordssrch="%"+keywords.lower()+"%"
                 paramslist.append(keywordssrch)
@@ -47,19 +47,19 @@ class backend():
                 paramslist.append(authorsrch)
                 sqlstr=sqlstr+" AND author LIKE ?"
             if year != "":    
-                paramslist.append(year)
-                sqlstr=sqlstr+" AND year = ?"
-            sqlstr=sqlstr+";"
+                paramslist.append(year) #add the year to the list.
+                sqlstr=sqlstr+" AND year = ?" 
+            sqlstr=sqlstr+";" #add the semicolon to the end of the SQL string.
             print(sqlstr)
-            params=tuple(paramslist)
+            params=tuple(paramslist) #convert the list to a tuple.
             print(params)
             
-            if len(params)==0:
-                self.cur.execute(sqlstr)
+            if len(params)==0: #if no parameters are passed in, then execute the original SQL string.
+                self.cur.execute(sqlstr) 
             else:
-                self.cur.execute(sqlstr,params)
+                self.cur.execute(sqlstr,params) #if parameters are passed in, then execute the new SQL string.
                 
-            rows = self.cur.fetchall()
+            rows = self.cur.fetchall() #fetch all the rows from the database.
             #print(len(rows))
             #print(rows)
             self.conn.close()

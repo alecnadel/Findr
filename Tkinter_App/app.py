@@ -4,9 +4,9 @@ from tkinter import Scrollbar #visual indicator for scrollbar not used?
 import ttkthemes
 #import sqlite3 as sql
 from backend import backend
+# Above are imported modules for the application.
 
-
-class Engine(tk.Tk):
+class Engine(tk.Tk):  # Create a class object, function nested in python class. 
     def __init__(self):
         super().__init__() #initialize the tk.TK class
         self.title('Findr')
